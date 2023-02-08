@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SenderoController;
-use Illuminate\Support\Facades\Route;
 use App\Models\Sendero;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,25 @@ use App\Models\Sendero;
 |
 */
 
-Route::get('/senderos', [SenderoController::class, 'index']);
-Route::get('/senderos/{sendero}', [SenderoController::class, 'show']);
-Route::get('/senderos/delete/{sendero}', [SenderoController::class, 'destroy']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    
+    //Rutas para gestionar el perfil del usuario
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Rutas de los senderos
+    Route::get('/senderos', [SenderoController::class, 'index']);
+
+
+});
+
+require __DIR__.'/auth.php';

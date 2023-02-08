@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        /*
         Schema::create('senderos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre',100);
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('localidad');
             $table->timestamps();
         });
+        */
     }
 
     /**
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('senderos');
+        //Schema::dropIfExists('senderos');
     }
 };
