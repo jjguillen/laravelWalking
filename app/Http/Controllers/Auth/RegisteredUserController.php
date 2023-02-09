@@ -46,6 +46,13 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        //Si eres admin te mando a Dashboard. Si eres usuario te mando a /senderos
+        if ($user->rol == "admin") {
+            return redirect(RouteServiceProvider::HOME);
+        } else {
+            return redirect("/senderos");
+        }
+
+        
     }
 }

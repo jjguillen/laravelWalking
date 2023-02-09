@@ -14,7 +14,7 @@ class SenderoController extends Controller
      */
     public function index()
     {
-        return view('senderos', [ 'senderos' => Sendero::all() ]);
+        return view('web.senderos', [ 'senderos' => Sendero::all() ]);
     }
 
     /**
@@ -24,7 +24,7 @@ class SenderoController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.formNuevoSendero');
     }
 
     /**
@@ -46,7 +46,7 @@ class SenderoController extends Controller
      */
     public function show(Sendero $sendero)
     {
-        return view('senderoDetalle', ['sendero' => $sendero]);
+        return view('web.senderoDetalle', ['sendero' => $sendero]);
     }
 
     /**

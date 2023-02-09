@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -31,10 +31,25 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //Rutas de los senderos
-    Route::get('/senderos', [SenderoController::class, 'index']);
+    
 
+});
 
+//Solo si eres admin y estás autenticado
+Route::middleware(['auth', 'rol:admin'])->group(function () {
+    //Rutas protegidas para admin
+    Route::get('/senderos/nuevo', [SenderoController::class, 'create']);
+   
+
+});
+
+//Rutas de los senderos sin auth
+Route::get('/senderos', [SenderoController::class, 'index']);
+Route::get('/senderos/{sendero}', [SenderoController::class, 'show']);
+
+//Ruta solo para mostrar mensajes cuando el rol no coincide
+Route::get('/error', function () {
+    return view('admin.error');
 });
 
 require __DIR__.'/auth.php';
