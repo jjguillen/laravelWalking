@@ -3,13 +3,14 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
         </h2>
+        <a href="/senderos/nuevo"><button>Nuevo</button></a>
     </x-slot>
 
 
 
 
     <div class="w-48 mx-auto">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method='POST' action='/senderos/store'>
             @csrf
 
             <div class="mb-4">
@@ -18,7 +19,7 @@
                 </label>
                 <input
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="nombre" name="nombre" type="text">
+                    id="nombre" name="nombre" type="text" value="{{ old('nombre') }}" required>
             </div>
 
             <div class="mb-4">
@@ -27,7 +28,7 @@
                 </label>
                 <input
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="kms" name="kms" type="number" min='1' placeholder="10">
+                    id="kms" name="kms" type="number" min='1' placeholder="10" value="{{ old('kms') }}" required>
             </div>
 
             <div class="mb-4">
@@ -36,7 +37,7 @@
                 </label>
                 <input
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="descripcion" name="descripcion" type="text">
+                    id="descripcion" name="descripcion" value="{{ old('descripcion') }}"  type="text">
             </div>
 
             <div class="mb-4">
@@ -45,7 +46,7 @@
                 </label>
                 <input
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="localidad" name="localidad" type="text">
+                    id="localidad" name="localidad" value="{{ old('localidad') }}"  type="text">
             </div>
 
             <div class="mb-4">
@@ -65,7 +66,7 @@
             <div class="flex items-center justify-between">
                 <button
                     class="bg-blue-700 hover:bg-blue-800 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="button">
+                    type="submit">
                     Nuevo
                 </button>
             </div>

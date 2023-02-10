@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SenderoController;
 use App\Models\Sendero;
+use App\Models\Grupo;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [SenderoController::class , 'indexAdmin'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     
@@ -39,17 +39,23 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'rol:admin'])->group(function () {
     //Rutas protegidas para admin
     Route::get('/senderos/nuevo', [SenderoController::class, 'create']);
-   
-
+    Route::post('/senderos/store' , [SenderoController::class, 'store']);
 });
 
 //Rutas de los senderos sin auth
 Route::get('/senderos', [SenderoController::class, 'index']);
 Route::get('/senderos/{sendero}', [SenderoController::class, 'show']);
 
+//Rutas a CRUD del Modelo Grupo: index, show, create, edit, store, update, destroy
+//Route::resource('grupo', GrupoController::class);
+Route::get('/grupo/{mensaje}', [GrupoController::class, 'index']);
+
 //Ruta solo para mostrar mensajes cuando el rol no coincide
 Route::get('/error', function () {
     return view('admin.error');
 });
 
+
+
 require __DIR__.'/auth.php';
+

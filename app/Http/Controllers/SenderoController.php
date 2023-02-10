@@ -17,6 +17,11 @@ class SenderoController extends Controller
         return view('web.senderos', [ 'senderos' => Sendero::all() ]);
     }
 
+    public function indexAdmin()
+    {
+        return view('admin.senderos', [ 'senderos' => Sendero::paginate(5) ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +40,30 @@ class SenderoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        foreach($request->all() as $input)
+            echo $input . "<br>";
+        */
+        
+        //Mete los datos del input en la sesión
+        $request->flash();
+
+
+        if (!$request->filled('localidad')) {
+            return back()->withInput();
+        }
+
+        //Grabar un objeto Sendero en BBDD con los datos del $request
+        $sendero = new Sendero();
+        $sendero->nombre = $request->input('nombre');
+        $sendero->kms = $request->input('kms');
+        $sendero->descripcion = $request->input('descripcion');
+        $sendero->dificultad = $request->input('dificultad');
+        $sendero->localidad = $request->input('localidad');
+
+        $sendero->save();
+
+        return view('admin.senderos', [ 'senderos' => Sendero::all() ]);
     }
 
     /**
