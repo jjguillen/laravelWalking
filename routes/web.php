@@ -43,6 +43,10 @@ Route::middleware(['auth', 'rol:admin'])->group(function () {
 });
 
 //Rutas de los senderos sin auth
+Route::get('/senderos/prueba', function() {
+    return view('web.layout');
+});
+
 Route::get('/senderos', [SenderoController::class, 'index']);
 Route::get('/senderos/{sendero}', [SenderoController::class, 'show']);
 
