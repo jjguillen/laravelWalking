@@ -12,9 +12,9 @@ class GrupoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($mensaje)
+    public function index()
     {
-        echo "Index grupo ".$mensaje;
+        return view('web.grupos', [ 'grupos' => Grupo::paginate(9) ]);
     }
 
     /**
@@ -24,7 +24,7 @@ class GrupoController extends Controller
      */
     public function create()
     {
-        //
+        return view("web.gruponuevo");
     }
 
     /**
@@ -46,7 +46,7 @@ class GrupoController extends Controller
      */
     public function show(Grupo $grupo)
     {
-        //
+        echo "Aquí sacamos los componentes del grupo";
     }
 
     /**

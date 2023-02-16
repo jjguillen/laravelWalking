@@ -9,6 +9,7 @@
 
     <div class="w-full max-w-xs mx-auto">
         <h3 class='text-lg text-green-500'>Nuevo Sendero</h3>
+        
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method='POST' action='/senderos/store'>
             @csrf
 

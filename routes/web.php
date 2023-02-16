@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+    //Para acceder a los grupos debes estar logeado
+    //Rutas a CRUD del Modelo Grupo: index, show, create, edit, store, update, destroy
+    Route::resource('grupo', GrupoController::class);
 });
 
 //Solo si eres admin y estás autenticado
@@ -40,13 +44,11 @@ Route::middleware(['auth', 'rol:admin'])->group(function () {
     Route::post('/senderos/store' , [SenderoController::class, 'store']);
 });
 
-
+//Rutas de la WEB -------------------------------------------------------------
 Route::get('/senderos', [SenderoController::class, 'index']);
 Route::get('/senderos/{sendero}', [SenderoController::class, 'show']);
 
-//Rutas a CRUD del Modelo Grupo: index, show, create, edit, store, update, destroy
-//Route::resource('grupo', GrupoController::class);
-Route::get('/grupo/{mensaje}', [GrupoController::class, 'index']);
+//-----------------------------------------------------------------------------
 
 //Ruta solo para mostrar mensajes cuando el rol no coincide
 Route::get('/error', function () {

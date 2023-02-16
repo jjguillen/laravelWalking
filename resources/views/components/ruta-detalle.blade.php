@@ -15,7 +15,7 @@
                 <li class="list-group-item"><br></li>
             </ul>
             
-            <a href="" class='p-3'><x-boton type='primary' mensaje='Iniciar ruta'/></a>
+            <a href="" class='p-3'><x-boton type='primary' mensaje='Iniciar sendero'/></a>
         </div>
     </div>
     
