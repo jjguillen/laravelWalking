@@ -1,15 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-        <a href="/senderos/nuevo"><button>Nuevo</button></a>
+            <a href="/senderos/nuevo"><button type='button' class="bg-blue-400 hover:bg-blue-600 text-white py-2 px-4 rounded">Nuevo</button></a>
     </x-slot>
 
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 
-
-
-    <div class="w-48 mx-auto">
+    <div class="w-full max-w-xs mx-auto">
+        <h3 class='text-lg text-green-500'>Nuevo Sendero</h3>
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method='POST' action='/senderos/store'>
             @csrf
 
@@ -65,13 +64,16 @@
 
             <div class="flex items-center justify-between">
                 <button
-                    class="bg-blue-700 hover:bg-blue-800 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit">
-                    Nuevo
+                    Crear
                 </button>
             </div>
         </form>
     </div>
 
 
+            </div>
+        </div>
+    </div>
 </x-app-layout>

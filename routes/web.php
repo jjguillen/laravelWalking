@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', [SenderoController::class , 'indexAdmin'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -31,8 +31,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    
-
 });
 
 //Solo si eres admin y estás autenticado
@@ -42,10 +40,6 @@ Route::middleware(['auth', 'rol:admin'])->group(function () {
     Route::post('/senderos/store' , [SenderoController::class, 'store']);
 });
 
-//Rutas de los senderos sin auth
-Route::get('/senderos/prueba', function() {
-    return view('web.layout');
-});
 
 Route::get('/senderos', [SenderoController::class, 'index']);
 Route::get('/senderos/{sendero}', [SenderoController::class, 'show']);

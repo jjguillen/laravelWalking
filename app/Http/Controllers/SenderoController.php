@@ -19,7 +19,7 @@ class SenderoController extends Controller
 
     public function indexAdmin()
     {
-        return view('admin.senderos', [ 'senderos' => Sendero::paginate(5) ]);
+        return view('admin.senderos', [ 'senderos' => Sendero::all() ]);
     }
 
     /**
@@ -60,6 +60,7 @@ class SenderoController extends Controller
         $sendero->descripcion = $request->input('descripcion');
         $sendero->dificultad = $request->input('dificultad');
         $sendero->localidad = $request->input('localidad');
+        $sendero->img = "storage/sendero-1.jpg";
 
         $sendero->save();
 
