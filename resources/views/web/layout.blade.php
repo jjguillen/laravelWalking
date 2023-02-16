@@ -49,7 +49,7 @@
           <li><a class="nav-link scrollto" href="/senderos">Senderos</a></li>
           <li><a class="nav-link scrollto " href="#">Grupos</a></li>
           <li><a class="nav-link scrollto" href="#">Contacto</a></li>
-          @auth
+          @auth 
           <li><a class="nav-link scrollto" href="/profile">Perfil</a></li>
           @else
               <li><a class="nav-link scrollto" href="{{ route('login') }}">Login</a></li>
