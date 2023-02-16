@@ -14,7 +14,7 @@ class SenderoController extends Controller
      */
     public function index()
     {
-        return view('web.senderos', [ 'senderos' => Sendero::all() ]);
+        return view('web.senderos', [ 'senderos' => Sendero::paginate(9) ]);
     }
 
     public function indexAdmin()

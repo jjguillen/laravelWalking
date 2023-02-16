@@ -19,12 +19,13 @@ class SenderoSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0; $i<5; $i++) {
+        for($i=0; $i<7; $i++) {
             DB::table('senderos')->insert([
                 'nombre' => 'Ruta ' . Str::random(10),
                 'kms' => rand(1,50),
                 'descripcion' => 'Lorep ipsum ' . Str::random(30),
                 'dificultad' => 'media',
+                'img' => 'storage/sendero-'. $i .'.jpg',
                 'localidad' => 'Vera',
                 'created_at' => Carbon::now()
             ]);
