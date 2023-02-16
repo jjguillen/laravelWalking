@@ -14,7 +14,7 @@ class GrupoController extends Controller
      */
     public function index()
     {
-        return view('web.grupos', [ 'grupos' => Grupo::paginate(9) ]);
+        return view('web.grupos', [ 'grupos' => Grupo::paginate(10) ]);
     }
 
     /**
@@ -35,7 +35,19 @@ class GrupoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Grabar un objeto Grupo en BBDD con los datos del $request
+        $grupo = new Grupo();
+        $grupo->nombre = $request->input('nombre');
+        $grupo->nivel = $request->input('nivel');
+
+        if ($request->has('federado'))
+            $grupo->federado = 1;
+        else
+            $grupo->federado = 0;
+            
+       $grupo->save();
+
+       return view('web.grupos', [ 'grupos' => Grupo::paginate(10) ]);
     }
 
     /**

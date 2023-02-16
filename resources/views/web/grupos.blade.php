@@ -18,7 +18,12 @@
                 <p class="card-text">
                     Nivel: {{ $grupo->nivel }}
                     <br>
-                    Federado: {{ $grupo->federeado }}
+                    Federado: 
+                    @if ($grupo->federado == 1)
+                        SI
+                    @else
+                        NO
+                    @endif
                 </p>
                 <a href="/grupo/{{ $grupo->id }}"><x-boton type='success' mensaje='Componentes'/></a>
             </div>

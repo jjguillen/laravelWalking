@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("nombre");
             $table->enum('nivel', ['amateur', 'profesional', 'experto']);
             $table->boolean('federado');
+            $table->timestamps();
         });
     }
 
