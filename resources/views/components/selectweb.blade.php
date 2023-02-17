@@ -7,7 +7,7 @@
                 @foreach($options as $key => $valor)
                     <option value="{{$key}}">{{$valor}}</option>
                 @endforeach
-              </select>
+            </select>
 
         </div>
     </div>

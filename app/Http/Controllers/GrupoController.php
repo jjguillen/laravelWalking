@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Grupo;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Carbon\Carbon;
 
 class GrupoController extends Controller
 {
@@ -40,6 +43,7 @@ class GrupoController extends Controller
         $grupo->nombre = $request->input('nombre');
         $grupo->nivel = $request->input('nivel');
 
+        //Checkbox
         if ($request->has('federado'))
             $grupo->federado = 1;
         else
@@ -93,5 +97,19 @@ class GrupoController extends Controller
     public function destroy(Grupo $grupo)
     {
         //
+    }
+
+
+
+    //MÉTODOS MANY TO MANY
+    public function componentes(Grupo $grupo)
+    {
+        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes]);
+    }
+
+    public function inscribir(Grupo $grupo, User $user) {
+        $grupo->componentes()->attach($user->id, [ 'created_at' => Carbon::now()]);
+        
+        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes]);
     }
 }

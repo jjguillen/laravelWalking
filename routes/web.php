@@ -35,6 +35,8 @@ Route::middleware('auth')->group(function () {
     //Para acceder a los grupos debes estar logeado
     //Rutas a CRUD del Modelo Grupo: index, show, create, edit, store, update, destroy
     Route::resource('grupo', GrupoController::class);
+    Route::get('grupo/{grupo}/componentes', [GrupoController::class, 'componentes']);
+    Route::get('grupo/{grupo}/componente/{user}', [GrupoController::class, 'inscribir']);
 });
 
 //Solo si eres admin y estás autenticado
