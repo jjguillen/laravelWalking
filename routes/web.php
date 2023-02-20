@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('grupo', GrupoController::class);
     Route::get('grupo/{grupo}/componentes', [GrupoController::class, 'componentes']);
     Route::get('grupo/{grupo}/componente/{user}', [GrupoController::class, 'inscribir']);
+    Route::get('grupo/{grupo}/componente/{user}/borrar', [GrupoController::class, 'desinscribir']);
 });
 
 //Solo si eres admin y estás autenticado

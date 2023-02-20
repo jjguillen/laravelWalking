@@ -15,6 +15,17 @@
     </div>
 
     <x-listaweb :elementos='$componentes'>
+        @foreach($componentes as $elemento)
+
+            @if (Auth::user()->id == $elemento->id)
+                <li class="list-group-item">{{$elemento->name}} - {{$elemento->email}} 
+                    <a href="/grupo/{{$grupo->id}}/componente/{{ Auth::user()->id }}/borrar"><x-boton type='danger' mensaje='X' class='w-2'/></a>
+                </li>
+            @else
+                <li class="list-group-item">{{$elemento->name}} - {{$elemento->email}}</li>
+            @endif
+
+        @endforeach
     </x-listaweb>
    
 

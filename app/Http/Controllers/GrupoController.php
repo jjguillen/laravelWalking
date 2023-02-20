@@ -108,7 +108,15 @@ class GrupoController extends Controller
     }
 
     public function inscribir(Grupo $grupo, User $user) {
-        $grupo->componentes()->attach($user->id, [ 'created_at' => Carbon::now()]);
+        if ( $grupo->componentes()->where('user_id', $user->id)->get()->count() == 0)
+            $grupo->componentes()->attach($user->id, [ 'created_at' => Carbon::now()]);
+        
+        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes]);
+    }
+
+    public function desinscribir(Grupo $grupo, User $user) {
+        if ( $grupo->componentes()->where('user_id', $user->id)->get()->count() > 0)
+            $grupo->componentes()->detach($user->id);
         
         return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes]);
     }
