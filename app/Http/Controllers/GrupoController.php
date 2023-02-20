@@ -7,6 +7,7 @@ use App\Models\Grupo;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class GrupoController extends Controller
 {
@@ -96,7 +97,15 @@ class GrupoController extends Controller
      */
     public function destroy(Grupo $grupo)
     {
-        //
+        //Borrar un grupo solo si estoy inscrito en él
+        if ($grupo->componentes()->get()->where('user_id', Auth::user()->id)->count() == 1) {
+            Grupo::destroy($grupo->id);
+            //Otra forma: $grupo->delete();
+        }
+
+
+        return view('web.grupos', [ 'grupos' => Grupo::paginate(10) ]);
+
     }
 
 
@@ -104,20 +113,20 @@ class GrupoController extends Controller
     //MÉTODOS MANY TO MANY
     public function componentes(Grupo $grupo)
     {
-        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes]);
+        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes()->orderBy('name', 'asc')->get()]);
     }
 
     public function inscribir(Grupo $grupo, User $user) {
         if ( $grupo->componentes()->where('user_id', $user->id)->get()->count() == 0)
             $grupo->componentes()->attach($user->id, [ 'created_at' => Carbon::now()]);
         
-        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes]);
+        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes()->orderBy('name', 'asc')->get()]);
     }
 
     public function desinscribir(Grupo $grupo, User $user) {
-        if ( $grupo->componentes()->where('user_id', $user->id)->get()->count() > 0)
+        if ( $grupo->componentes()->where('user_id', $user->id)->get()->count() == 1)
             $grupo->componentes()->detach($user->id);
         
-        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes]);
+        return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes()->orderBy('name', 'asc')->get()]);
     }
 }

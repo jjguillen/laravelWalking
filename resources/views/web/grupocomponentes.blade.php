@@ -15,6 +15,7 @@
     </div>
 
     <x-listaweb :elementos='$componentes'>
+
         @foreach($componentes as $elemento)
 
             @if (Auth::user()->id == $elemento->id)
@@ -26,6 +27,7 @@
             @endif
 
         @endforeach
+        
     </x-listaweb>
    
 

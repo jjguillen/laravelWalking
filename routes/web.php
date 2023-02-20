@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     //Rutas a CRUD del Modelo Grupo: index, show, create, edit, store, update, destroy
     Route::resource('grupo', GrupoController::class);
     Route::get('grupo/{grupo}/componentes', [GrupoController::class, 'componentes']);
+    Route::get('grupo/{grupo}/borrar', [GrupoController::class, 'destroy']);
     Route::get('grupo/{grupo}/componente/{user}', [GrupoController::class, 'inscribir']);
     Route::get('grupo/{grupo}/componente/{user}/borrar', [GrupoController::class, 'desinscribir']);
 });

@@ -26,6 +26,8 @@
                     @endif
                 </p>
                 <a href="/grupo/{{ $grupo->id }}/componentes"><x-boton type='success' mensaje='Componentes'/></a>
+                <a href="/grupo/{{ $grupo->id }}/borrar"><x-boton type='danger' mensaje='X'/></a>
+
             </div>
         </x-grupo>
     @endforeach
