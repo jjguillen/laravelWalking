@@ -13,13 +13,14 @@ class rutaDetalle extends Component
     public $dificultad;
     public $localidad;
     public $img;
+    public $id;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($nombre, $kms, $descripcion, $dificultad, $localidad, $img)
+    public function __construct($nombre, $kms, $descripcion, $dificultad, $localidad, $img, $id)
     {
         $this->nombre = $nombre;
         $this->kms = $kms;
@@ -27,6 +28,7 @@ class rutaDetalle extends Component
         $this->dificultad = $dificultad;
         $this->localidad = $localidad;
         $this->img = $img;
+        $this->id = $id;
     }
 
     /**

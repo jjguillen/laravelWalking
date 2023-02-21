@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sendero;
+use App\Models\User;
+use App\Models\Grupo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SenderoController extends Controller
 {
@@ -63,8 +66,9 @@ class SenderoController extends Controller
 
         //Imagen
         $path = $request->file('img')->store('public');
+        // /public/nombreimagengenerado.jpg
         //Cambiamos public por storage en la BBDD para que se pueda ver la imagen en la web
-        $sendero->img = str_replace('public', 'storage', $path);
+        $sendero->img =  str_replace('public', 'storage', $path);
 
         $sendero->save();
 
@@ -116,4 +120,37 @@ class SenderoController extends Controller
         $sendero->delete();
         return redirect('/senderos');
     }
+
+
+    //Formulario para registrar que haces una ruta con un grupo de amigos
+    public function registro(Sendero $sendero) {
+
+        //Sacar todos los grupo del usuario logueado
+        $grupos = Auth::user()->grupos()->get();
+
+        return view('web.formRegistrarSendero', ['grupos' => $grupos, 'sendero' => $sendero]);
+    }
+
+    //Grabar la valoración/registro de haber hecho un sendero en grupo
+    public function registrar(Sendero $sendero, Request $request) {
+
+        $sendero_id = $sendero->id;
+        $grupo_id = $request->grupo;
+        $descripcion = $request->descripcion;
+        $fecha = $request->fecha;
+        
+        if ($request->filled('img')) {
+            $path = $request->file('img')->store('public');
+            $img =  str_replace('public', 'storage', $path);
+        } else {
+            $img = "";
+        }
+
+        $sendero->grupos()->attach($grupo_id, ['descripcion' => $descripcion, 'fecha' => $fecha, 'img' => $img]);
+
+        return redirect('/senderos');
+
+    }
+
+
 }

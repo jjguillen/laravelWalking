@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::get('grupo/{grupo}/borrar', [GrupoController::class, 'destroy']);
     Route::get('grupo/{grupo}/componente/{user}', [GrupoController::class, 'inscribir']);
     Route::get('grupo/{grupo}/componente/{user}/borrar', [GrupoController::class, 'desinscribir']);
+
+    Route::get('senderos/{sendero}/registro', [SenderoController::class, 'registro']);
+    Route::post('senderos/{sendero}/registrar', [SenderoController::class, 'registrar']);
 });
 
 //Solo si eres admin y estás autenticado

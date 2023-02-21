@@ -12,6 +12,7 @@
         :localidad="$sendero->localidad" 
         :kms="$sendero->kms" 
         :img="asset($sendero->img)" 
+        :id="$sendero->id"
   />
 
 @endsection

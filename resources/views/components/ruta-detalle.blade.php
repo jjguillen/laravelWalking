@@ -15,7 +15,7 @@
                 <li class="list-group-item"><br></li>
             </ul>
             
-            <a href="" class='p-3'><x-boton type='primary' mensaje='Iniciar sendero'/></a>
+            <a href="/senderos/{{ $id }}/registro" class='p-3'><x-boton type='primary' mensaje='Iniciar sendero'/></a>
         </div>
     </div>
     
