@@ -98,7 +98,7 @@ class GrupoController extends Controller
     public function destroy(Grupo $grupo)
     {
         //Borrar un grupo solo si estoy inscrito en él
-        if ($grupo->componentes()->get()->where('user_id', Auth::user()->id)->count() == 1) {
+        if ($grupo->componentes()->where('user_id', Auth::user()->id)->get()->count() == 1) {
             Grupo::destroy($grupo->id);
             //Otra forma: $grupo->delete();
         }

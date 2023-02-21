@@ -60,7 +60,10 @@ class SenderoController extends Controller
         $sendero->descripcion = $request->input('descripcion');
         $sendero->dificultad = $request->input('dificultad');
         $sendero->localidad = $request->input('localidad');
-        $sendero->img = "storage/sendero-1.jpg";
+
+        //Imagen
+        $path = $request->file('img')->store('public');
+        $sendero->img = str_replace('public', 'storage', $path);
 
         $sendero->save();
 
