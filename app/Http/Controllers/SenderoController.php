@@ -63,6 +63,7 @@ class SenderoController extends Controller
 
         //Imagen
         $path = $request->file('img')->store('public');
+        //Cambiamos public por storage en la BBDD para que se pueda ver la imagen en la web
         $sendero->img = str_replace('public', 'storage', $path);
 
         $sendero->save();
