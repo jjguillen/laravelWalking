@@ -48,7 +48,7 @@
         <ul>
           <li><a class="nav-link scrollto" href="/senderos">Senderos</a></li>
           <li><a class="nav-link scrollto " href="/grupo">Grupos</a></li>
-          <li><a class="nav-link scrollto" href="#">Contacto</a></li>
+          <li><a class="nav-link scrollto" href="/realizadas">Realizadas</a></li>
           @auth 
           <li><a class="nav-link scrollto" href="/profile">Perfil</a></li>
           @else

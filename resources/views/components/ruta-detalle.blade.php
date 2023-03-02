@@ -2,6 +2,8 @@
     <br>
 
     <div class="row">
+
+
         <div class="col-lg-6 order-1 order-lg-2">
             <img src="{{ $img }}" class="img-fluid rounded-1" alt="">
         </div>
@@ -17,6 +19,8 @@
             
             <a href="/senderos/{{ $id }}/registro" class='p-3'><x-boton type='primary' mensaje='Iniciar sendero'/></a>
         </div>
+
+        
     </div>
     
 

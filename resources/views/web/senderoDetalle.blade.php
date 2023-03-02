@@ -13,6 +13,9 @@
         :kms="$sendero->kms" 
         :img="asset($sendero->img)" 
         :id="$sendero->id"
-  />
+  >
+
+  
+  </x-ruta-detalle>
 
 @endsection

@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Grupo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use  Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class SenderoController extends Controller
 {
@@ -146,9 +148,42 @@ class SenderoController extends Controller
             $img = "";
         }
 
+        //Comprobar que no haya registrado ya ese sendero con ese grupo
+
         $sendero->grupos()->attach($grupo_id, ['descripcion' => $descripcion, 'fecha' => $fecha, 'img' => $img]);
 
         return redirect('/senderos');
+
+    }
+
+
+    public function verSenderosRealizados() {
+
+        //Todos los senderos que ha realizado el usuario logueado a través de algún grupo
+
+        //Para el usuario, sacar todos los grupos en los que está, y para cada uno sacar todos los senderos
+
+        $senderos = DB::table('senderos')
+        ->join('sendero_grupo', 'senderos.id', '=', 'sendero_grupo.sendero_id')
+        ->join('user_grupo', 'user_grupo.grupo_id', '=', 'sendero_grupo.grupo_id')
+        ->where("user_grupo.user_id", '=', Auth::user()->id)
+        ->select('senderos.*')
+        ->get();
+
+        echo $senderos;
+
+echo "---------------------------<br>";
+
+
+        $senderosRealizados = new \Illuminate\Database\Eloquent\Collection();
+        $grupos = Auth::user()->grupos()->get();
+
+        foreach($grupos as $grupo) {
+            $senderosRealizados = $senderosRealizados->union($grupo->senderosRealizados()->get()); 
+        }
+
+        echo $senderosRealizados;
+
 
     }
 
