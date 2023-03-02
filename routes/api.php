@@ -27,21 +27,46 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+//////////////////////////////////////////////////
+
+
 Route::middleware('auth:sanctum')->group(function () {
+   
+    Route::get('grupos/{id}',  function ($id) {
+        /*
+        $grupo = Grupo::find($id);
+        if ($grupo == null) {
+            return response()->json([ 'msg:' => 'Error, grupo no encontrado']);
+        } else {
+            return new GrupoResource(Grupo::findOrFail($id));
+        }
+        */
+        return new GrupoResource(Grupo::findOrFail($id));
+    });
+    
+    Route::get('grupos/',  function () {
+        return GrupoResource::collection(Grupo::all());
+    });
+    
     Route::get('senderos/',  function () {
-        return new SenderoCollection(Sendero::all());
+        return new SenderoCollection(Sendero::paginate(4));
+    });
+
+    Route::post('senderos/{id}/registrar' ,  function (Request $request, $id) {
+        $sendero_id = $id;
+        $sendero = Sendero::find($id);
+        $grupo_id = $request->grupo;
+        $descripcion = $request->descripcion;
+        $fecha = $request->fecha;
+
+        $sendero->grupos()->attach($grupo_id, ['descripcion' => $descripcion, 'fecha' => $fecha, 'img' => ""]);
+
+        return response()->json(['msg:' => 'Sendero realizado']);
+
     });
 
 });
 
-
-Route::get('grupos/{id}',  function ($id) {
-    return new GrupoResource(Grupo::findOrFail($id));
-});
-
-Route::get('grupos/',  function () {
-    return GrupoResource::collection(Grupo::all());
-});
 
 //CREAR TOKEN
 Route::post('/tokens/create', function (Request $request) {
@@ -49,9 +74,12 @@ Route::post('/tokens/create', function (Request $request) {
     $user = User::where('email', $request->email)->first();
   
     if (!$user || !Hash::check($request->password, $user->password)) {
+        return response()->json(['error' => 'Usuario o contraseña incorrectos']);
+        /*
         throw ValidationException::withMessages([
           'email' => ['The provided credentials are incorrect.'],
         ]);
+        */
     }
 
     $token = $user->createToken($request->email);

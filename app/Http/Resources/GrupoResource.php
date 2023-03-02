@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\UserResource;
 
 class GrupoResource extends JsonResource
 {
@@ -19,6 +20,7 @@ class GrupoResource extends JsonResource
             'nombre' => $this->nombre,
             'nivel' => $this->nivel,
             'federado' => $this->federado,
+            'inscritos' => UserResource::collection($this->componentes),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
