@@ -27,6 +27,7 @@
                 </p>
                 <a href="/grupo/{{ $grupo->id }}/componentes"><x-boton type='success' mensaje='Componentes'/></a>
                 <a href="/grupo/{{ $grupo->id }}/borrar"><x-boton type='danger' mensaje='X'/></a>
+                <a href="/carrito/{{ $grupo->id }}"><x-boton type='warning' mensaje='Carro'/></a>
 
             </div>
         </x-grupo>

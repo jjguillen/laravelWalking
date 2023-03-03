@@ -174,7 +174,7 @@ class SenderoController extends Controller
 
 echo "---------------------------<br>";
 
-
+/*
         $senderosRealizados = new \Illuminate\Database\Eloquent\Collection();
         $grupos = Auth::user()->grupos()->get();
 
@@ -183,7 +183,7 @@ echo "---------------------------<br>";
         }
 
         echo $senderosRealizados;
-
+*/
 
     }
 

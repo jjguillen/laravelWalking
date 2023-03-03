@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Darryldecode\Cart\Facades\CartFacade;
+use \Cart;
 
 class GrupoController extends Controller
 {
@@ -128,5 +130,25 @@ class GrupoController extends Controller
             $grupo->componentes()->detach($user->id);
         
         return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes()->orderBy('name', 'asc')->get()]);
+    }
+
+    public function addCarrito(Grupo $grupo, Request $request) {
+
+        $request->session()->push('carrito.lineas', array(
+            'id' => $grupo->id,
+            'name' => $grupo->nombre,
+            'price' => 100,
+            'quantity' => 1
+        ));
+
+        //Ver carro
+        echo "Ver carro";
+
+        $value = session('carrito.lineas');
+
+        foreach($value as $val) {
+            echo $val['id'] . " " . $val['name'] . " " . $val['price'] . "<br>"; 
+        }
+
     }
 }

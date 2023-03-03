@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::post('senderos/{sendero}/registrar', [SenderoController::class, 'registrar']);
 
     Route::get('realizadas', [SenderoController::class, 'verSenderosRealizados']);
+
+    Route::get('carrito/{grupo}', [GrupoController::class, 'addCarrito']);
 });
 
 //Solo si eres admin y estás autenticado
