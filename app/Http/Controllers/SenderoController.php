@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate \ Database \ QueryException;
 
 class SenderoController extends Controller
 {
@@ -141,17 +142,22 @@ class SenderoController extends Controller
         $descripcion = $request->descripcion;
         $fecha = $request->fecha;
         
-        if ($request->filled('img')) {
+        if($request->hasFile('img')){ 
+            //echo "Lo ve";
             $path = $request->file('img')->store('public');
             $img =  str_replace('public', 'storage', $path);
         } else {
+            //echo "No lo ve";
             $img = "";
         }
 
         //Comprobar que no haya registrado ya ese sendero con ese grupo
-
-        $sendero->grupos()->attach($grupo_id, ['descripcion' => $descripcion, 'fecha' => $fecha, 'img' => $img]);
-
+        if ( $sendero->grupos->contains($grupo_id) ) {
+            echo "Encontrado";
+        } else {
+            $sendero->grupos()->attach($grupo_id, ['descripcion' => $descripcion, 'fecha' => $fecha, 'img' => $img]);
+        }
+      
         return redirect('/senderos');
 
     }
@@ -167,13 +173,15 @@ class SenderoController extends Controller
         ->join('sendero_grupo', 'senderos.id', '=', 'sendero_grupo.sendero_id')
         ->join('user_grupo', 'user_grupo.grupo_id', '=', 'sendero_grupo.grupo_id')
         ->where("user_grupo.user_id", '=', Auth::user()->id)
-        ->select('senderos.*')
+        ->select('senderos.*', 'sendero_grupo.*')
         ->get();
 
-        echo $senderos;
+        //echo $senderos;
 
-echo "---------------------------<br>";
+        return view('web.senderosRealizados', ['senderos' => $senderos]);
 
+
+        
 /*
         $senderosRealizados = new \Illuminate\Database\Eloquent\Collection();
         $grupos = Auth::user()->grupos()->get();

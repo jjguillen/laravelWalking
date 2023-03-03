@@ -132,6 +132,10 @@ class GrupoController extends Controller
         return view('web.grupocomponentes' , ['grupo' => $grupo, 'componentes' => $grupo->componentes()->orderBy('name', 'asc')->get()]);
     }
 
+
+    /**
+     * Método de prueba para mostrar cómo se haría para simular un carrito de la copra
+     */
     public function addCarrito(Grupo $grupo, Request $request) {
 
         $request->session()->push('carrito.lineas', array(
